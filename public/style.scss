@@ -1,0 +1,67 @@
+$DarkBlue: hsl(209, 23%, 22%); //(Dark Mode Elements)
+$VeryDarkBlue: hsl(207, 26%, 17%); //(Dark Mode Background)
+$VeryDarkBlue: hsl(200, 15%, 8%); //(Light Mode Text)
+$DarkGray: hsl(0, 0%, 52%); //(Light Mode Input)
+$VeryLightGray: hsl(0, 0%, 98%); //(Light Mode Background)
+$White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+}
+body {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  background-image: url(../design/desktop-design-detail-dark.jpg);
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-image: url(../../design/desktop-design-detail-dark.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    pointer-events: none;
+  }
+}
+
+#app {
+  background-color: #fafafa;
+}
+header {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 25px 0;
+}
+.header__logo {
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.container {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.filter__countries {
+  margin: 25px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.countryToFind {
+  background-color: white;
+  height: 50px;
+  box-shadow: 0 2px 15px -12px;
+  width: 500px;
+  padding: 0 25px;
+}
