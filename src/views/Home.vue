@@ -19,7 +19,7 @@
       </select>
     </div>
     <div class="list__countries">
-      <transition-group name="test">
+      <transition-group name="test" mode="out-in">
         <CountryCard
           v-for="item in filtered"
           :name="item.name"
@@ -85,9 +85,12 @@ export default {
 
 <style>
 .list__countries {
+  margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  row-gap: 20px;
+  row-gap: 75px;
+  column-gap: 75px;
+  grid-auto-rows: 335px;
 }
 
 .test-enter-from {
