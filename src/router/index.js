@@ -1,7 +1,6 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-/* import CountryView from "../views/CountryView.vue";
- */
+
 const routes = [
   {
     path: "/",
@@ -19,14 +18,34 @@ const routes = [
   },
   {
     path: "/country/:name",
+    /*  redirect: (to) => {
+      return { path: "/country", query: { q: to.params.name } };
+    }, */
     name: "CountryView",
     component: () => import("../views/CountryView.vue"),
     props: true,
+    beforeEnter: (to) => {
+      const country = to.params.name;
+      const countries = JSON.parse(localStorage.getItem("list"));
+      const exist = countries.some((item) => {
+        return item.name === country;
+      });
+      if (!exist)
+        return {
+          path: "/404",
+          component: () => import("../views/NotFound.vue"),
+        };
+    },
+  },
+  { path: "/404", component: () => import("../views/NotFound.vue") },
+  {
+    path: "/:catchAll(.*)*",
+    redirect: "/404",
   },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
