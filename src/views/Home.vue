@@ -7,7 +7,7 @@
         placeholder="Search for a country"
         v-model="countryToFind"
         @keyup="findCountry"
-      />{{ search }}
+      />
       <select name="select" v-model="filter" @change="fil">
         <option selected value="all">All</option>
         <option value="Asia" selected>Asia</option>

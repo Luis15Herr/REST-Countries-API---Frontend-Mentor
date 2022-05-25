@@ -33,21 +33,28 @@
               ><b>Top Level Domain:</b> {{ country.topLevelDomain[0] }}
             </span>
             <span class="country__meta-info"
-              ><b>Currencies:</b> {{ country.currencies.name }}
+              ><b>Currencies: </b>
+              <template v-for="item in country.currencies">
+                {{ item.name }}
+              </template>
             </span>
             <span class="country__meta-info"
               ><b>Languages: </b>
-              <template v-for="item in country.languages"
-                >{{ item.name }},
-              </template>
+              <template v-for="item in listOfLangs">{{ item }} </template>
             </span>
           </div>
         </div>
         <div class="country__borders">
-          <span
-            ><b>Border Countries: </b>
-            <template v-for="item in country.borders">{{ item }}, </template>
-          </span>
+          <span class="country__borders-title">Border Countries: </span>
+          <div class="country__borders-wrapper">
+            <router-link
+              class="country__borders-item"
+              v-for="item in borderCountries"
+              v-bind:key="item"
+              :to="{ name: 'CountryView', params: { name: item } }"
+              >{{ item }}
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -55,28 +62,63 @@
 </template>
 
 <script>
-import { inject, ref } from "vue";
+import { computed, inject, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "CountryView",
   props: ["name"],
-  setup(props) {
-    let country = ref(null);
 
-    if (country.value === null) {
-      let countries = inject("countries");
-      countries.value.map((item) => {
-        if (item.name === props.name) {
-          country.value = item;
-          country.value.population = country.value.population
-            .toString()
-            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-        }
-      });
+  setup(props) {
+    let countries = inject("countries");
+    let country = ref(null);
+    let borderCountries = ref([]);
+    const route = useRoute();
+
+    watch(props, () => {
+      if (props != country.value.name) {
+        console.log("testa");
+        loadCountry();
+      }
+    });
+
+    function loadCountry() {
+      borderCountries.value = [];
+      if (props.name === route.params.name) {
+        countries.value.map((item) => {
+          if (item.name === props.name) {
+            country.value = item;
+            country.value.population = country.value.population
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            countries.value.map((item) => {
+              if (!country.value.borders) return;
+              if (country.value.borders.includes(item.alpha3Code)) {
+                borderCountries.value.push(item.name);
+              } else {
+                console.log("nein");
+              }
+            });
+          }
+        });
+      }
     }
 
+    const listOfLangs = computed(() => {
+      return country.value.languages.map((item, index) => {
+        console.log(item.name, index);
+        if (index === country.value.languages.length - 1) {
+          return item.name + ".";
+        }
+        return item.name + "," + " ";
+      });
+    });
+
+    loadCountry();
     return {
       country,
+      listOfLangs,
+      borderCountries,
     };
   },
 };

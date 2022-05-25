@@ -40,7 +40,7 @@ body {
     background-image: url(https://raw.githubusercontent.com/Luis15Herr/REST-Countries-API---Frontend-Mentor/master/frontendmentor/design/desktop-design-detail-light.jpg);
     background-repeat: no-repeat;
     background-position-x: center;
-    opacity: 0.2;
+    opacity: 0;
     pointer-events: none;
   }
 }
@@ -52,11 +52,11 @@ header {
   display: flex;
   justify-content: space-between;
 
-  padding: 25px 0;
+  padding: 23px 0 25px 0px;
 }
 .header__logo {
   font-weight: 700;
-  font-size: 1.5em;
+  font-size: 1.48em;
 }
 #nav {
   margin-bottom: 47px;
@@ -93,7 +93,7 @@ header {
   margin-top: 80px;
 }
 .country__content {
-  margin-top: 78px;
+  margin-top: 80px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -129,4 +129,29 @@ header {
   display: block;
   font-size: 0.95em;
   margin-bottom: 12px;
+}
+
+.country__borders {
+  margin-top: 61px;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+}
+.country__borders-title {
+  margin-right: 11px;
+  font-size: 0.95em;
+  font-weight: bold;
+}
+
+.country__borders-item {
+  box-shadow: 0px 0px 2px 2px #0000001a;
+  border-radius: 3px;
+  padding: 5px;
+  margin-right: 10px;
+  color: black;
+  font-weight: 600;
+  font-size: 0.9em;
+  min-width: 96px;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 10px;
 }
