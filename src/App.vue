@@ -4,7 +4,7 @@
       <div class="container header__wrapper">
         <div class="header__logo">Where in the world?</div>
         <div class="header__theme-switcher">
-          <button>Dark Mode</button>
+          <button><i class="bi bi-moon-stars"></i> Dark Mode</button>
         </div>
       </div>
     </header>

@@ -35,7 +35,7 @@ body::after {
   top: 0;
   left: 0;
   position: absolute;
-  background-image: url(https://raw.githubusercontent.com/Luis15Herr/REST-Countries-API---Frontend-Mentor/master/frontendmentor/design/desktop-design-detail-light.jpg);
+  background-image: url(https://raw.githubusercontent.com/Luis15Herr/REST-Countries-API---Frontend-Mentor/master/frontendmentor/design/desktop-design-home-light.jpg);
   background-repeat: no-repeat;
   background-position-x: center;
   opacity: 0;
@@ -66,6 +66,23 @@ header {
   margin-bottom: 47px;
 }
 
+.header__theme-switcher button {
+  font-size: 0.95em;
+  font-weight: 700;
+  margin-top: 7px;
+  margin-left: 10px;
+  padding: 0;
+  background-color: white;
+}
+
+.header__theme-switcher button i {
+  margin-right: 7px;
+}
+
+.header__theme-switcher button:hover {
+  cursor: pointer;
+}
+
 .container {
   width: 1280px;
   margin: 0 auto;
@@ -80,13 +97,33 @@ header {
           justify-content: space-between;
 }
 
+.searchForm {
+  background-color: white;
+  height: 57px;
+  -webkit-box-shadow: 0 2px 15px -12px;
+          box-shadow: 0 2px 15px -12px;
+  padding-left: 33px;
+}
+
 .countryToFind {
   background-color: white;
   height: 55px;
-  -webkit-box-shadow: 0 2px 15px -12px;
-          box-shadow: 0 2px 15px -12px;
-  width: 500px;
   padding: 0 25px;
+  padding-top: 5px;
+  width: 430px;
+  outline: none;
+}
+
+.selectFilter {
+  width: 190px;
+  border-right: solid 15px white;
+  padding-left: 10px;
+  padding-top: 5px;
+  font-weight: 600;
+}
+
+.selectFilter:hover {
+  cursor: pointer;
 }
 
 /* Country View*/
