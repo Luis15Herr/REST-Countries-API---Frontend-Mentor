@@ -1,6 +1,8 @@
 <template>
   <div class="country container">
-    <router-link class="country__back-btn" to="/">Back</router-link>
+    <router-link class="country__back-btn" to="/"
+      ><i class="bi bi-arrow-left"></i> Back</router-link
+    >
     <div class="country__content">
       <div class="country__flag">
         <img :src="country.flag" alt="" />
@@ -77,7 +79,6 @@ export default {
 
     watch(props, () => {
       if (props != country.value.name) {
-        console.log("testa");
         loadCountry();
       }
     });
@@ -96,7 +97,7 @@ export default {
               if (country.value.borders.includes(item.alpha3Code)) {
                 borderCountries.value.push(item.name);
               } else {
-                console.log("nein");
+                return;
               }
             });
           }
@@ -106,7 +107,6 @@ export default {
 
     const listOfLangs = computed(() => {
       return country.value.languages.map((item, index) => {
-        console.log(item.name, index);
         if (index === country.value.languages.length - 1) {
           return item.name + ".";
         }

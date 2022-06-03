@@ -22,7 +22,7 @@
       </select>
     </div>
     <div>
-      <sequential-entrance class="list__countries">
+      <transition-group tag="div" name="list" class="list__countries">
         <CountryCard
           v-for="item in listToShow"
           :name="item.name"
@@ -32,7 +32,7 @@
           :flag="item.flag"
           :key="item.name"
         />
-      </sequential-entrance>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -120,12 +120,15 @@ export default {
 </script>
 
 <style>
-.list__countries {
-  margin-top: 48px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  row-gap: 75px;
-  column-gap: 75px;
-  grid-auto-rows: 335px;
+.list-enter-from {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.list-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+.list-enter-active {
+  transition: all 0.4s ease;
 }
 </style>
