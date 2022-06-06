@@ -9,6 +9,9 @@
       </div>
     </header>
   </div>
+  <div class="test" v-if="loading">
+    <h1>HELLO</h1>
+  </div>
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <component :is="Component" />
@@ -21,9 +24,10 @@ import { onMounted, ref, provide } from "@vue/runtime-core";
 export default {
   setup() {
     let countries = ref(null);
+    let loading = ref(true);
 
     onMounted(() => {
-      if (localStorage.getItem("list") === null) {
+      /*    if (localStorage.getItem("list") === null) {
         console.log("Loading From Web");
         fetch("https://restcountries.com/v2/all")
           .then((response) => response.json())
@@ -34,19 +38,21 @@ export default {
       } else {
         console.log("loadingFromStorage");
         countries.value = JSON.parse(localStorage.getItem("list"));
-      }
-      countries.value = countries.value.sort(function (a, b) {
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        return 0;
-      });
+      } */
+
+      fetch("https://restcountries.com/v2/all")
+        .then((response) => response.json())
+        .then((data) => {
+          countries.value = data;
+          localStorage.setItem("list", JSON.stringify(countries.value));
+          loading.value = false;
+        });
     });
 
     provide("countries", countries);
+    return {
+      loading,
+    };
   },
 };
 </script>

@@ -7,11 +7,16 @@
           class="countryToFind"
           type="text"
           placeholder="Search for a country"
-          v-model="countryToFind"
+          v-model="searchBarValue"
           @keyup="findCountry"
         />
       </div>
-      <select name="select" v-model="filter" @change="fil" class="selectFilter">
+      <select
+        name="select"
+        v-model="filterChoice"
+        @change="detectFilter"
+        class="selectFilter"
+      >
         <option selected value="all">Filter by Region</option>
         <option value="Asia" selected>Asia</option>
         <option value="Europe">Europe</option>
@@ -24,7 +29,7 @@
     <div>
       <transition-group tag="div" name="list" class="list__countries">
         <CountryCard
-          v-for="item in listToShow"
+          v-for="item in domCountriesList"
           :name="item.name"
           :population="item.population"
           :region="item.region"
@@ -38,9 +43,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import CountryCard from "@/components/CountryCard.vue";
-
 import { ref, inject, onMounted } from "@vue/runtime-core";
 
 export default {
@@ -49,70 +52,48 @@ export default {
     CountryCard,
   },
   setup() {
-    let countries = inject("countries");
-    let filtered = ref(countries.value);
-    let filter = ref("all"); //Select
-    let slicedArr = ref([]);
-    let listToShow = ref([]);
-    let countryToFind = ref("");
-    let i = 0;
-
-    const fil = () => {
-      if (filter.value === "all") {
-        filtered.value = countries.value;
-      } else {
-        filtered.value = countries.value.filter(
-          (item) => item.region === filter.value
-        );
-      }
-      slicedArr.value = sliceIntoChunks(filtered.value, 12);
-      loadFilter();
-    };
-
-    function loadFilter() {
-      listToShow.value = [];
-      listToShow.value.push(...slicedArr.value[0]);
-    }
-
-    function sliceIntoChunks(arr, chunkSize) {
-      const res = [];
-      for (let i = 0; i < arr.length; i += chunkSize) {
-        const chunk = arr.slice(i, i + chunkSize);
-        res.push(chunk);
-      }
-      return res;
-    }
+    let filterChoice = ref("all"); //Region filter value
+    let searchBarValue = ref(""); // Search bar value
+    let countries = inject("countries"); // List of all countries
+    let domCountriesList = ref(countries.value); //List to show countries
 
     function handleScroll() {
-      if (
+      /*  if (
         window.scrollY + window.innerHeight >=
         document.body.scrollHeight - 50
       ) {
         if (i >= slicedArr.value.length) return;
-        listToShow.value.push(...slicedArr.value[i++]);
-      }
+        domCountriesList.value.push(...slicedArr.value[i++]);
+      } */
     }
 
     function findCountry() {
-      let reg = new RegExp(countryToFind.value, "gi");
-      listToShow.value = countries.value.filter((item) => {
+      let reg = new RegExp(searchBarValue.value, "gi");
+      domCountriesList.value = countries.value.filter((item) => {
         return item.name.match(reg);
       });
     }
 
+    function detectFilter() {
+      if (filterChoice.value === "all") {
+        domCountriesList.value = countries.value;
+      } else {
+        domCountriesList.value = countries.value.filter(
+          (item) => item.region === filterChoice.value
+        );
+      }
+    }
+
     onMounted(() => {
       window.addEventListener("scroll", handleScroll);
-      slicedArr.value = sliceIntoChunks(filtered.value, 12);
-
-      loadFilter();
     });
+
     return {
+      filterChoice,
+      detectFilter,
+      searchBarValue,
       countries,
-      filtered,
-      filter,
-      listToShow,
-      fil,
-      countryToFind,
+      domCountriesList,
       findCountry,
     };
   },
