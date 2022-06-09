@@ -1,9 +1,10 @@
 $DarkBlue: hsl(209, 23%, 22%); //(Dark Mode Elements)
-$VeryDarkBlue: hsl(207, 26%, 17%); //(Dark Mode Background)
+$VeryDarkBlueBg: hsl(207, 26%, 17%); //(Dark Mode Background)
 $VeryDarkBlue: hsl(200, 15%, 8%); //(Light Mode Text)
 $DarkGray: hsl(0, 0%, 52%); //(Light Mode Input)
 $VeryLightGray: hsl(0, 0%, 98%); //(Light Mode Background)
 $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,14 +18,96 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: $VeryDarkBlue;
-  background-color: $VeryLightGray;
   height: 100%;
 }
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid rgb(219, 219, 219);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: rgb(230, 230, 230) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-html,
-body {
-  background-color: $VeryLightGray;
+//Theme Ligth
+
+.light__theme {
+  #app,
+  body {
+    background-color: $VeryLightGray;
+    color: $VeryDarkBlue;
+    transition: background 0.2s;
+  }
+  .searchForm,
+  .countryToFind,
+  .selectFilter,
+  .card {
+    background-color: white;
+    color: $VeryDarkBlue;
+  }
+  .selectFilter,
+  .searchForm {
+    box-shadow: 0 2px 15px -12px;
+  }
+  .countryToFind {
+    color: $DarkGray;
+  }
+}
+//Theme Dark
+
+.dark__theme {
+  #app,
+  body {
+    background-color: $VeryDarkBlueBg;
+    color: $White;
+    transition: background 0.2s;
+  }
+  .searchForm,
+  .countryToFind,
+  .selectFilter,
+  .card,
+  .countryToFind,
+  header {
+    background-color: $DarkBlue;
+    color: $White;
+  }
+
+  .selectFilter,
+  .searchForm {
+    box-shadow: 0px 2px 8px 0px #0000000f;
+  }
+  .countryToFind {
+    &::placeholder {
+      color: $White;
+    }
+  }
 }
 
 header {
@@ -33,7 +116,6 @@ header {
 .header__wrapper {
   display: flex;
   justify-content: space-between;
-
   padding: 23px 0 25px 0px;
 }
 .header__logo {
@@ -50,6 +132,7 @@ header {
     margin-top: 7px;
     margin-left: 10px;
     padding: 0;
+    color: inherit;
     background-color: transparent;
     i {
       margin-right: 7px;
@@ -69,30 +152,25 @@ header {
   justify-content: space-between;
 }
 .searchForm {
-  background-color: white;
   height: 57px;
-  box-shadow: 0 2px 15px -12px;
   padding-left: 33px;
-  border-radius: 3px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .countryToFind {
-  background-color: white;
   height: 55px;
   padding: 0 25px;
   padding-top: 5px;
   width: 430px;
   outline: none;
-  color: $DarkGray;
 }
 .selectFilter {
   width: 200px;
-  background-color: white;
-  border-right: solid 15px white;
+  border-right: solid 15px transparent;
   padding-left: 20px;
   padding-top: 5px;
   font-weight: 600;
-  box-shadow: 0 2px 15px -12px;
   border-radius: 3px;
   outline: none;
   &:hover {
@@ -113,7 +191,6 @@ header {
   height: 100%;
   border-radius: 7px;
   overflow: hidden;
-  background-color: white;
   box-shadow: 0px 1px 2px 1px #0000000a;
 }
 .card:hover {
@@ -132,7 +209,6 @@ header {
 .card__info {
   text-align: left;
   padding: 25px 25px;
-  color: black;
 }
 
 .card__title {

@@ -12,14 +12,132 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #111517;
-  background-color: #fafafa;
   height: 100%;
 }
 
-html,
-body {
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #dbdbdb;
+  border-radius: 50%;
+  -webkit-animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #e6e6e6 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  -webkit-animation-delay: -0.45s;
+          animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+
+@-webkit-keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.light__theme #app,
+.light__theme body {
   background-color: #fafafa;
+  color: #111517;
+  -webkit-transition: background 0.2s;
+  transition: background 0.2s;
+}
+
+.light__theme .searchForm,
+.light__theme .countryToFind,
+.light__theme .selectFilter,
+.light__theme .card {
+  background-color: white;
+  color: #111517;
+}
+
+.light__theme .selectFilter,
+.light__theme .searchForm {
+  -webkit-box-shadow: 0 2px 15px -12px;
+          box-shadow: 0 2px 15px -12px;
+}
+
+.light__theme .countryToFind {
+  color: #858585;
+}
+
+.dark__theme #app,
+.dark__theme body {
+  background-color: #202c37;
+  color: white;
+  -webkit-transition: background 0.2s;
+  transition: background 0.2s;
+}
+
+.dark__theme .searchForm,
+.dark__theme .countryToFind,
+.dark__theme .selectFilter,
+.dark__theme .card,
+.dark__theme .countryToFind,
+.dark__theme header {
+  background-color: #2b3945;
+  color: white;
+}
+
+.dark__theme .selectFilter,
+.dark__theme .searchForm {
+  -webkit-box-shadow: 0px 2px 8px 0px #0000000f;
+          box-shadow: 0px 2px 8px 0px #0000000f;
+}
+
+.dark__theme .countryToFind::-webkit-input-placeholder {
+  color: white;
+}
+
+.dark__theme .countryToFind:-ms-input-placeholder {
+  color: white;
+}
+
+.dark__theme .countryToFind::-ms-input-placeholder {
+  color: white;
+}
+
+.dark__theme .countryToFind::placeholder {
+  color: white;
 }
 
 header {
@@ -52,6 +170,7 @@ header {
   margin-top: 7px;
   margin-left: 10px;
   padding: 0;
+  color: inherit;
   background-color: transparent;
 }
 
@@ -78,33 +197,26 @@ header {
 }
 
 .searchForm {
-  background-color: white;
   height: 57px;
-  -webkit-box-shadow: 0 2px 15px -12px;
-          box-shadow: 0 2px 15px -12px;
   padding-left: 33px;
-  border-radius: 3px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .countryToFind {
-  background-color: white;
   height: 55px;
   padding: 0 25px;
   padding-top: 5px;
   width: 430px;
   outline: none;
-  color: #858585;
 }
 
 .selectFilter {
   width: 200px;
-  background-color: white;
-  border-right: solid 15px white;
+  border-right: solid 15px transparent;
   padding-left: 20px;
   padding-top: 5px;
   font-weight: 600;
-  -webkit-box-shadow: 0 2px 15px -12px;
-          box-shadow: 0 2px 15px -12px;
   border-radius: 3px;
   outline: none;
 }
@@ -130,7 +242,6 @@ header {
   height: 100%;
   border-radius: 7px;
   overflow: hidden;
-  background-color: white;
   -webkit-box-shadow: 0px 1px 2px 1px #0000000a;
           box-shadow: 0px 1px 2px 1px #0000000a;
 }
@@ -156,7 +267,6 @@ header {
 .card__info {
   text-align: left;
   padding: 25px 25px;
-  color: black;
 }
 
 .card__title {

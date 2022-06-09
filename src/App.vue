@@ -4,15 +4,22 @@
       <div class="container header__wrapper">
         <div class="header__logo">Where in the world?</div>
         <div class="header__theme-switcher">
-          <button><i class="bi bi-moon-stars"></i> Dark Mode</button>
+          <button @click="toggleTheme">
+            <i class="bi bi-moon-stars"></i> Dark Mode
+          </button>
         </div>
       </div>
     </header>
   </div>
   <div class="test" v-if="loading">
-    <h1>HELLO</h1>
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
-  <router-view v-slot="{ Component }">
+  <router-view v-else v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <component :is="Component" />
     </transition>
@@ -20,13 +27,35 @@
 </template>
 
 <script>
-import { onMounted, ref, provide } from "@vue/runtime-core";
+import { ref, provide, onBeforeMount } from "@vue/runtime-core";
 export default {
   setup() {
     let countries = ref(null);
     let loading = ref(true);
+    let darkTheme = ref(false);
 
-    onMounted(() => {
+    function toggleTheme() {
+      darkTheme.value = !darkTheme.value;
+      console.log("works", darkTheme.value);
+      if (darkTheme.value) {
+        document.body.classList.add("dark__theme");
+        document.body.classList.remove("light__theme");
+      } else {
+        document.body.classList.remove("dark__theme");
+        document.body.classList.add("light__theme");
+      }
+    }
+
+    function sliceIntoChunks(arr, chunkSize) {
+      const res = [];
+      for (let i = 0; i < arr.length; i += chunkSize) {
+        const chunk = arr.slice(i, i + chunkSize);
+        res.push(chunk);
+      }
+      return res;
+    }
+
+    onBeforeMount(() => {
       /*    if (localStorage.getItem("list") === null) {
         console.log("Loading From Web");
         fetch("https://restcountries.com/v2/all")
@@ -43,7 +72,7 @@ export default {
       fetch("https://restcountries.com/v2/all")
         .then((response) => response.json())
         .then((data) => {
-          countries.value = data;
+          countries.value = sliceIntoChunks(data, 12);
           localStorage.setItem("list", JSON.stringify(countries.value));
           loading.value = false;
         });
@@ -52,6 +81,7 @@ export default {
     provide("countries", countries);
     return {
       loading,
+      toggleTheme,
     };
   },
 };

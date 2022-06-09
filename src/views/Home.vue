@@ -26,25 +26,24 @@
         <option value="Polar">Polar</option>
       </select>
     </div>
-    <div>
-      <transition-group tag="div" name="list" class="list__countries">
-        <CountryCard
-          v-for="item in domCountriesList"
-          :name="item.name"
-          :population="item.population"
-          :region="item.region"
-          :capital="item.capital"
-          :flag="item.flag"
-          :key="item.name"
-        />
-      </transition-group>
-    </div>
+
+    <transition-group tag="div" name="list" class="list__countries">
+      <CountryCard
+        v-for="item in domCountriesList"
+        :name="item.name"
+        :population="item.population"
+        :region="item.region"
+        :capital="item.capital"
+        :flag="item.flag"
+        :key="item.name"
+      />
+    </transition-group>
   </div>
 </template>
 
 <script>
 import CountryCard from "@/components/CountryCard.vue";
-import { ref, inject, onMounted } from "@vue/runtime-core";
+import { ref, inject, onMounted, watch } from "@vue/runtime-core";
 
 export default {
   name: "Home",
@@ -55,16 +54,21 @@ export default {
     let filterChoice = ref("all"); //Region filter value
     let searchBarValue = ref(""); // Search bar value
     let countries = inject("countries"); // List of all countries
-    let domCountriesList = ref(countries.value); //List to show countries
+    let domCountriesList = ref([]); //List to show countries
+    let i = 0;
+
+    watch(countries, () => {
+      console.log("test");
+    });
 
     function handleScroll() {
-      /*  if (
+      if (
         window.scrollY + window.innerHeight >=
-        document.body.scrollHeight - 50
+        document.body.scrollHeight - 200
       ) {
-        if (i >= slicedArr.value.length) return;
-        domCountriesList.value.push(...slicedArr.value[i++]);
-      } */
+        if (i >= countries.value.length) return;
+        domCountriesList.value.push(...countries.value[i++]);
+      }
     }
 
     function findCountry() {
@@ -78,23 +82,23 @@ export default {
       if (filterChoice.value === "all") {
         domCountriesList.value = countries.value;
       } else {
-        domCountriesList.value = countries.value.filter(
-          (item) => item.region === filterChoice.value
-        );
+        domCountriesList.value = [].concat
+          .apply([], countries.value)
+          .filter((item) => item.region === filterChoice.value);
       }
     }
-
     onMounted(() => {
       window.addEventListener("scroll", handleScroll);
+      domCountriesList.value.push(...countries.value[0]);
     });
 
     return {
       filterChoice,
       detectFilter,
       searchBarValue,
-      countries,
       domCountriesList,
       findCountry,
+      countries,
     };
   },
 };
