@@ -31,6 +31,7 @@ import { ref, provide, onBeforeMount } from "@vue/runtime-core";
 export default {
   setup() {
     let countries = ref(null);
+    let countriesList = ref(null);
     let loading = ref(true);
     let darkTheme = ref(false);
 
@@ -73,12 +74,14 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           countries.value = sliceIntoChunks(data, 12);
+          countriesList.value = data;
           localStorage.setItem("list", JSON.stringify(countries.value));
           loading.value = false;
         });
     });
 
     provide("countries", countries);
+    provide("countriesList", countriesList);
     return {
       loading,
       toggleTheme,

@@ -72,7 +72,7 @@ export default {
   props: ["name"],
 
   setup(props) {
-    let countries = inject("countries");
+    let countries = inject("countriesList");
     let country = ref(null);
     let borderCountries = ref([]);
     const route = useRoute();

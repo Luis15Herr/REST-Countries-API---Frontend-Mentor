@@ -12,9 +12,9 @@ const routes = [
     name: "CountryView",
     component: () => import("../views/CountryView.vue"),
     props: true,
-    beforeEnter: (to) => {
+    /*     beforeEnter: (to) => {
       const country = to.params.name;
-      const countries = JSON.parse(localStorage.getItem("list"));
+      /* const countries = JSON.parse(localStorage.getItem("list"));
       const exist = countries.some((item) => {
         return item.name === country;
       });
@@ -22,8 +22,8 @@ const routes = [
         return {
           path: "/404",
           component: () => import("../views/NotFound.vue"),
-        };
-    },
+        }; 
+    }, */
   },
   { path: "/404", component: () => import("../views/NotFound.vue") },
   {

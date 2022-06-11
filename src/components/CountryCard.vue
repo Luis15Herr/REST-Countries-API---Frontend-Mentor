@@ -5,7 +5,7 @@
     :name="name"
   >
     <div class="card__img">
-      <img :src="flag" alt="" />
+      <img :src="flag" alt="Flag" />
     </div>
     <div class="card__info">
       <span class="card__title">{{ name }} </span>
