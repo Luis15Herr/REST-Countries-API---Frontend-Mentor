@@ -59,9 +59,9 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
 //Theme Ligth
 
 .light__theme {
+  background-color: $VeryLightGray;
   #app,
   body {
-    background-color: $VeryLightGray;
     color: $VeryDarkBlue;
     transition: background 0.2s;
   }
@@ -83,9 +83,10 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
 //Theme Dark
 
 .dark__theme {
+  background-color: $VeryDarkBlueBg;
+
   #app,
   body {
-    background-color: $VeryDarkBlueBg;
     color: $White;
     transition: background 0.2s;
   }
@@ -226,8 +227,15 @@ header {
 }
 
 /* Country View*/
-.country__back-btn {
+.dark__theme .country__back-btn {
+  background-color: $DarkBlue;
+  color: $White;
+}
+.light__theme .country__back-btn {
   background-color: #ffffff;
+}
+
+.country__back-btn {
   height: 40px;
   width: 136px;
   display: inline-block;
@@ -301,14 +309,22 @@ header {
   font-weight: bold;
 }
 
+.dark__theme .country__borders-item {
+  background-color: $DarkBlue;
+  color: $White;
+}
+.light__theme .country__borders-item {
+  color: $VeryDarkBlue;
+  background-color: $White;
+}
+
 .country__borders-item {
   box-shadow: 0px 0px 2px 2px #0000001a;
   border-radius: 3px;
   padding: 5px;
   margin-right: 10px;
-  color: black;
-  font-weight: 600;
-  font-size: 0.9em;
+  font-weight: 500;
+  font-size: 0.85em;
   min-width: 96px;
   display: inline-block;
   text-align: center;

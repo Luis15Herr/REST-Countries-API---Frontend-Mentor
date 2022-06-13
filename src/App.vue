@@ -57,27 +57,34 @@ export default {
     }
 
     onBeforeMount(() => {
-      /*    if (localStorage.getItem("list") === null) {
+      if (
+        localStorage.getItem("allCountriesChunks") === null ||
+        localStorage.getItem("allCountries") === null
+      ) {
         console.log("Loading From Web");
         fetch("https://restcountries.com/v2/all")
           .then((response) => response.json())
           .then((data) => {
-            countries.value = data;
-            localStorage.setItem("list", JSON.stringify(countries.value));
+            countries.value = sliceIntoChunks(data, 12);
+            countriesList.value = data;
+            localStorage.setItem(
+              "allCountries",
+              JSON.stringify(countriesList.value)
+            );
+            localStorage.setItem(
+              "allCountriesChunks",
+              JSON.stringify(countries.value)
+            );
+            loading.value = false;
           });
       } else {
-        console.log("loadingFromStorage");
-        countries.value = JSON.parse(localStorage.getItem("list"));
-      } */
-
-      fetch("https://restcountries.com/v2/all")
-        .then((response) => response.json())
-        .then((data) => {
-          countries.value = sliceIntoChunks(data, 12);
-          countriesList.value = data;
-          localStorage.setItem("list", JSON.stringify(countries.value));
-          loading.value = false;
-        });
+        console.log("Loading from storage");
+        countriesList.value = JSON.parse(localStorage.getItem("allCountries"));
+        countries.value = JSON.parse(
+          localStorage.getItem("allCountriesChunks")
+        );
+        loading.value = false;
+      }
     });
 
     provide("countries", countries);
