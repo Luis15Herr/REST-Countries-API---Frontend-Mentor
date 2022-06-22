@@ -2,13 +2,14 @@
   <div class="home container">
     <div class="filter__countries">
       <div class="searchForm">
-        <i class="bi bi-search"></i>
+        <i class="bi bi-search" v-if="!isSearching" @click="findCountry"></i>
+        <i class="bi bi-house" v-else @click="clearSearch"></i>
         <input
           class="countryToFind"
           type="text"
           placeholder="Search for a country"
           v-model="searchBarValue"
-          @keyup="findCountry"
+          @keyup.enter="findCountry"
         />
       </div>
       <select
@@ -27,9 +28,25 @@
       </select>
     </div>
 
-    <transition-group tag="div" name="list" class="list__countries">
+    <transition-group
+      tag="div"
+      name="list"
+      class="list__countries"
+      v-if="filterChoice === 'all'"
+    >
       <CountryCard
         v-for="item in domCountriesList"
+        :name="item.name"
+        :population="item.population"
+        :region="item.region"
+        :capital="item.capital"
+        :flag="item.flag"
+        :key="item.name"
+      />
+    </transition-group>
+    <transition-group tag="div" name="list" class="list__countries" v-else>
+      <CountryCard
+        v-for="item in domCountriesListFiltered"
         :name="item.name"
         :population="item.population"
         :region="item.region"
@@ -53,8 +70,11 @@ export default {
   setup() {
     let filterChoice = ref("all"); //Region filter value
     let searchBarValue = ref(""); // Search bar value
-    let countries = inject("countries"); // List of all countries
+    let countries = inject("countries"); // List of all countries in chunks
+    let allCountries = inject("countriesList"); // List of all countries in chunks
     let domCountriesList = ref([]); //List to show countries
+    let domCountriesListFiltered = ref([]); //List to show countries by filter
+    let isSearching = ref(false); //Detect if shearching
     let i = 0;
 
     watch(countries, () => {
@@ -72,17 +92,23 @@ export default {
     }
 
     function findCountry() {
+      isSearching.value = true;
       let reg = new RegExp(searchBarValue.value, "gi");
-      domCountriesList.value = countries.value.filter((item) => {
+      domCountriesList.value = allCountries.value.filter((item) => {
         return item.name.match(reg);
       });
+    }
+    function clearSearch() {
+      searchBarValue.value = "";
+      isSearching.value = false;
+      domCountriesList.value = countries.value[0];
     }
 
     function detectFilter() {
       if (filterChoice.value === "all") {
-        domCountriesList.value = countries.value;
+        domCountriesList.value = countries.value[0];
       } else {
-        domCountriesList.value = [].concat
+        domCountriesListFiltered.value = [].concat
           .apply([], countries.value)
           .filter((item) => item.region === filterChoice.value);
       }
@@ -95,10 +121,13 @@ export default {
     return {
       filterChoice,
       detectFilter,
+      clearSearch,
       searchBarValue,
       domCountriesList,
       findCountry,
       countries,
+      domCountriesListFiltered,
+      isSearching,
     };
   },
 };
