@@ -8,9 +8,26 @@
           class="countryToFind"
           type="text"
           placeholder="Search for a country"
-          v-model="searchBarValue"
+          v-model.trim="searchBarValue"
           @keyup.enter="findCountry"
+          @keyup="autoComplete"
+          @focus="showDiv = true"
+          @blur="showDiv = false"
         />
+        <ul
+          class="autoComplete__results"
+          v-if="searchBarValue.length > 1 && showDiv"
+        >
+          <li v-for="item in testList" :key="item.id">
+            <router-link
+              :to="{ name: 'CountryView', params: { name: item.name } }"
+              >{{ item.name }}</router-link
+            >
+          </li>
+          <a v-if="testList.length > 4" @click="findCountry">
+            Show all results</a
+          >
+        </ul>
       </div>
       <select
         name="select"
@@ -75,6 +92,8 @@ export default {
     let domCountriesList = ref([]); //List to show countries
     let domCountriesListFiltered = ref([]); //List to show countries by filter
     let isSearching = ref(false); //Detect if shearching
+    let testList = ref([]);
+    let showDiv = ref(false);
     let i = 0;
 
     watch(countries, () => {
@@ -82,6 +101,7 @@ export default {
     });
 
     function handleScroll() {
+      if (isSearching) return;
       if (
         window.scrollY + window.innerHeight >=
         document.body.scrollHeight - 200
@@ -92,12 +112,33 @@ export default {
     }
 
     function findCountry() {
+      if (searchBarValue.value === "") {
+        domCountriesList.value = countries.value[0];
+        isSearching.value = false;
+        return;
+      }
       isSearching.value = true;
+      filterChoice.value = "all";
       let reg = new RegExp(searchBarValue.value, "gi");
       domCountriesList.value = allCountries.value.filter((item) => {
         return item.name.match(reg);
       });
     }
+
+    function autoComplete() {
+      if (searchBarValue.value.length < 1) return;
+      let reg = new RegExp(searchBarValue.value, "gi");
+      testList.value = allCountries.value.filter((item) => {
+        return item.name.match(reg);
+      });
+
+      if (testList.value.length > 5) {
+        console.log(testList.value);
+        console.log(testList.value.length > 5);
+        testList.value = testList.value.slice(0, 5);
+      }
+    }
+
     function clearSearch() {
       searchBarValue.value = "";
       isSearching.value = false;
@@ -128,6 +169,9 @@ export default {
       countries,
       domCountriesListFiltered,
       isSearching,
+      testList,
+      autoComplete,
+      showDiv,
     };
   },
 };

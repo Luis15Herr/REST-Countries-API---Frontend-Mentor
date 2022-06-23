@@ -152,13 +152,18 @@ header {
   display: flex;
   justify-content: space-between;
 }
+
 .searchForm {
   height: 57px;
-  padding-left: 33px;
   border-radius: 5px;
-  overflow: hidden;
+}
+
+.bi-search {
+  padding-left: 33px;
+  cursor: pointer;
 }
 .bi-house {
+  padding-left: 33px;
   display: inline-block;
   animation: bellshake 3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
 
@@ -205,6 +210,19 @@ header {
     transform: rotate(0);
   }
 }
+.autoComplete__results {
+  background-color: white;
+  margin-top: 10px;
+  width: 100%;
+  z-index: 5;
+  position: relative;
+  box-shadow: 0 2px 15px -12px;
+  li {
+    padding: 10px 0;
+    list-style: none;
+    text-align: left;
+  }
+}
 
 .countryToFind {
   height: 55px;
@@ -226,6 +244,7 @@ header {
   }
 }
 .list__countries {
+  z-index: 6;
   margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
