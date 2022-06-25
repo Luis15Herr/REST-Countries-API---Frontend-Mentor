@@ -2,32 +2,37 @@
   <div class="home container">
     <div class="filter__countries">
       <div class="searchForm">
-        <i class="bi bi-search" v-if="!isSearching" @click="findCountry"></i>
-        <i class="bi bi-house" v-else @click="clearSearch"></i>
-        <input
-          class="countryToFind"
-          type="text"
-          placeholder="Search for a country"
-          v-model.trim="searchBarValue"
-          @keyup.enter="findCountry"
-          @keyup="autoComplete"
-          @focus="showDiv = true"
-          @blur="showDiv = false"
-        />
-        <ul
-          class="autoComplete__results"
-          v-if="searchBarValue.length > 1 && showDiv"
-        >
-          <li v-for="item in testList" :key="item.id">
-            <router-link
-              :to="{ name: 'CountryView', params: { name: item.name } }"
-              >{{ item.name }}</router-link
-            >
-          </li>
-          <a v-if="testList.length > 4" @click="findCountry">
-            Show all results</a
+        <div class="test" @blur="showDiv = false">
+          <i class="bi bi-search" v-if="!isSearching" @click="findCountry"></i>
+          <i class="bi bi-house" v-else @click="clearSearch"></i>
+          <input
+            class="countryToFind"
+            type="text"
+            placeholder="Search for a country"
+            v-model.trim="searchBarValue"
+            @keyup.enter="findCountry"
+            @keyup="autoComplete"
+            @focus="showDiv = true"
+          />
+          <ul
+            class="autoComplete__results"
+            v-if="searchBarValue.length > 1 && showDiv"
           >
-        </ul>
+            <li v-for="item in testList" :key="item.id">
+              <router-link
+                :to="{ name: 'CountryView', params: { name: item.name } }"
+                >{{ item.name }}</router-link
+              >
+            </li>
+            <a
+              class="seeAll__search"
+              v-if="testList.length > 4"
+              @click="findCountry"
+            >
+              Show all results</a
+            >
+          </ul>
+        </div>
       </div>
       <select
         name="select"

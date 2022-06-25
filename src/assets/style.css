@@ -88,15 +88,21 @@
 .light__theme .searchForm,
 .light__theme .countryToFind,
 .light__theme .selectFilter,
-.light__theme .card {
+.light__theme .card,
+.light__theme .autoComplete__results {
   background-color: white;
   color: #111517;
 }
 
 .light__theme .selectFilter,
-.light__theme .searchForm {
+.light__theme .searchForm,
+.light__theme .autoComplete__results {
   -webkit-box-shadow: 0 2px 15px -12px;
           box-shadow: 0 2px 15px -12px;
+}
+
+.light__theme .autoComplete__results li a:hover {
+  background-color: #eeeeeeb0;
 }
 
 .light__theme .countryToFind {
@@ -125,9 +131,22 @@
 }
 
 .dark__theme .selectFilter,
-.dark__theme .searchForm {
+.dark__theme .searchForm,
+.dark__theme .autoComplete__results {
   -webkit-box-shadow: 0px 2px 8px 0px #0000000f;
           box-shadow: 0px 2px 8px 0px #0000000f;
+}
+
+.dark__theme .autoComplete__results {
+  background-color: #2b3945;
+}
+
+.dark__theme .autoComplete__results a {
+  color: white;
+}
+
+.dark__theme .autoComplete__results a:hover {
+  background-color: #384a5a;
 }
 
 .dark__theme .countryToFind::-webkit-input-placeholder {
@@ -306,19 +325,36 @@ header {
 }
 
 .autoComplete__results {
-  background-color: white;
   margin-top: 10px;
   width: 100%;
   z-index: 5;
   position: relative;
-  -webkit-box-shadow: 0 2px 15px -12px;
-          box-shadow: 0 2px 15px -12px;
+  padding: 0;
 }
 
 .autoComplete__results li {
-  padding: 10px 0;
   list-style: none;
   text-align: left;
+}
+
+.autoComplete__results li a {
+  display: block;
+  cursor: pointer;
+  padding: 10px 0px 10px 40px;
+  -webkit-transition: ease 0.2s;
+  transition: ease 0.2s;
+  color: inherit;
+}
+
+.autoComplete__results li a:hover {
+  -webkit-transition: ease 0.2s;
+  transition: ease 0.2s;
+}
+
+.seeAll__search {
+  padding: 10px 0;
+  display: block;
+  cursor: pointer;
 }
 
 .countryToFind {

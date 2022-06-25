@@ -68,13 +68,24 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
   .searchForm,
   .countryToFind,
   .selectFilter,
-  .card {
+  .card,
+  .autoComplete__results {
     background-color: white;
     color: $VeryDarkBlue;
   }
   .selectFilter,
-  .searchForm {
+  .searchForm,
+  .autoComplete__results {
     box-shadow: 0 2px 15px -12px;
+  }
+  .autoComplete__results {
+    li {
+      a {
+        &:hover {
+          background-color: #eeeeeeb0;
+        }
+      }
+    }
   }
   .countryToFind {
     color: $DarkGray;
@@ -101,8 +112,18 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
   }
 
   .selectFilter,
-  .searchForm {
+  .searchForm,
+  .autoComplete__results {
     box-shadow: 0px 2px 8px 0px #0000000f;
+  }
+  .autoComplete__results {
+    background-color: $DarkBlue;
+    a {
+      color: $White;
+      &:hover {
+        background-color: #384a5a;
+      }
+    }
   }
   .countryToFind {
     &::placeholder {
@@ -211,17 +232,31 @@ header {
   }
 }
 .autoComplete__results {
-  background-color: white;
   margin-top: 10px;
   width: 100%;
   z-index: 5;
   position: relative;
-  box-shadow: 0 2px 15px -12px;
+  padding: 0;
   li {
-    padding: 10px 0;
     list-style: none;
     text-align: left;
+    a {
+      display: block;
+      cursor: pointer;
+      padding: 10px 0px 10px 40px;
+      transition: ease 0.2s;
+      color: inherit;
+      &:hover {
+        transition: ease 0.2s;
+      }
+    }
   }
+}
+
+.seeAll__search {
+  padding: 10px 0;
+  display: block;
+  cursor: pointer;
 }
 
 .countryToFind {
