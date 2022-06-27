@@ -2,37 +2,35 @@
   <div class="home container">
     <div class="filter__countries">
       <div class="searchForm">
-        <div class="test" @blur="showDiv = false">
-          <i class="bi bi-search" v-if="!isSearching" @click="findCountry"></i>
-          <i class="bi bi-house" v-else @click="clearSearch"></i>
-          <input
-            class="countryToFind"
-            type="text"
-            placeholder="Search for a country"
-            v-model.trim="searchBarValue"
-            @keyup.enter="findCountry"
-            @keyup="autoComplete"
-            @focus="showDiv = true"
-          />
-          <ul
-            class="autoComplete__results"
-            v-if="searchBarValue.length > 1 && showDiv"
+        <i class="bi bi-search" v-if="!isSearching" @click="findCountry"></i>
+        <i class="bi bi-house" v-else @click="clearSearch"></i>
+        <input
+          class="countryToFind"
+          type="text"
+          placeholder="Search for a country"
+          v-model.trim="searchBarValue"
+          @keyup.enter="findCountry"
+          @keyup="autoComplete"
+          @focus="showDiv = true"
+        />
+        <ul
+          class="autoComplete__results"
+          v-if="searchBarValue.length > 1 && showDiv"
+        >
+          <li v-for="item in searchResultList" :key="item.id">
+            <router-link
+              :to="{ name: 'CountryView', params: { name: item.name } }"
+              >{{ item.name }}</router-link
+            >
+          </li>
+          <a
+            class="seeAll__search"
+            v-if="searchResultList.length > 4"
+            @click="findCountry"
           >
-            <li v-for="item in testList" :key="item.id">
-              <router-link
-                :to="{ name: 'CountryView', params: { name: item.name } }"
-                >{{ item.name }}</router-link
-              >
-            </li>
-            <a
-              class="seeAll__search"
-              v-if="testList.length > 4"
-              @click="findCountry"
-            >
-              Show all results</a
-            >
-          </ul>
-        </div>
+            Show all results</a
+          >
+        </ul>
       </div>
       <select
         name="select"
@@ -97,7 +95,7 @@ export default {
     let domCountriesList = ref([]); //List to show countries
     let domCountriesListFiltered = ref([]); //List to show countries by filter
     let isSearching = ref(false); //Detect if shearching
-    let testList = ref([]);
+    let searchResultList = ref([]);
     let showDiv = ref(false);
     let i = 0;
 
@@ -116,7 +114,11 @@ export default {
       }
     }
 
-    function findCountry() {
+    function findCountry(e) {
+      showDiv.value = false;
+      if (e.key === "Enter") {
+        e.target.blur();
+      }
       if (searchBarValue.value === "") {
         domCountriesList.value = countries.value[0];
         isSearching.value = false;
@@ -133,14 +135,12 @@ export default {
     function autoComplete() {
       if (searchBarValue.value.length < 1) return;
       let reg = new RegExp(searchBarValue.value, "gi");
-      testList.value = allCountries.value.filter((item) => {
+      searchResultList.value = allCountries.value.filter((item) => {
         return item.name.match(reg);
       });
 
-      if (testList.value.length > 5) {
-        console.log(testList.value);
-        console.log(testList.value.length > 5);
-        testList.value = testList.value.slice(0, 5);
+      if (searchResultList.value.length > 5) {
+        searchResultList.value = searchResultList.value.slice(0, 5);
       }
     }
 
@@ -174,7 +174,7 @@ export default {
       countries,
       domCountriesListFiltered,
       isSearching,
-      testList,
+      searchResultList,
       autoComplete,
       showDiv,
     };
