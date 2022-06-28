@@ -89,16 +89,21 @@
 .light__theme .countryToFind,
 .light__theme .selectFilter,
 .light__theme .card,
-.light__theme .autoComplete__results {
+.light__theme .aselect ul {
   background-color: white;
   color: #111517;
 }
 
 .light__theme .selectFilter,
 .light__theme .searchForm,
-.light__theme .autoComplete__results {
+.light__theme .aselect ul {
   -webkit-box-shadow: 0 2px 15px -12px;
           box-shadow: 0 2px 15px -12px;
+}
+
+.light__theme .aselect ul li:hover,
+.light__theme .aselect ul li.current {
+  background: #eaeaea;
 }
 
 .light__theme .autoComplete__results li a:hover {
@@ -123,6 +128,7 @@
 .dark__theme .searchForm,
 .dark__theme .countryToFind,
 .dark__theme .selectFilter,
+.dark__theme .aselect ul,
 .dark__theme .card,
 .dark__theme .countryToFind,
 .dark__theme header {
@@ -132,9 +138,15 @@
 
 .dark__theme .selectFilter,
 .dark__theme .searchForm,
-.dark__theme .autoComplete__results {
+.dark__theme .autoComplete__results,
+.dark__theme .aselect ul {
   -webkit-box-shadow: 0px 2px 8px 0px #0000000f;
           box-shadow: 0px 2px 8px 0px #0000000f;
+}
+
+.dark__theme .aselect ul li:hover,
+.dark__theme .aselect ul li.current {
+  background-color: #344553;
 }
 
 .dark__theme .autoComplete__results {
@@ -367,11 +379,10 @@ header {
 
 .selectFilter {
   width: 200px;
-  border-right: solid 15px transparent;
-  padding-left: 20px;
-  padding-top: 5px;
   font-weight: 600;
   border-radius: 3px;
+  position: relative;
+  right: -1px;
   outline: none;
 }
 
@@ -682,5 +693,81 @@ header {
   .country__borders-item {
     min-width: 110px;
   }
+}
+
+.aselect {
+  width: 200px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.aselect .selector {
+  background-color: inherit;
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+.aselect .selector .arrow {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #888;
+  -webkit-transform: rotateZ(0deg) translateY(0px);
+          transform: rotateZ(0deg) translateY(0px);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
+          transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
+}
+
+.aselect .selector .expanded {
+  -webkit-transform: rotateZ(180deg) translateY(2px);
+          transform: rotateZ(180deg) translateY(2px);
+}
+
+.aselect .selector .label {
+  display: block;
+  padding: 12px;
+  font-size: 14px;
+  color: inherit;
+}
+
+.aselect ul {
+  margin-top: 20px;
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  position: absolute;
+  z-index: 1;
+}
+
+.aselect li {
+  padding: 12px;
+  color: inherit;
+  font-size: 14px;
+}
+
+.aselect li:hover {
+  background: #fafafa;
+}
+
+.aselect .hidden {
+  visibility: hidden;
+}
+
+.aselect .listOfFilterVisible {
+  visibility: visible;
+  position: relative;
+  top: 15px;
 }
 /*# sourceMappingURL=style.css.map */

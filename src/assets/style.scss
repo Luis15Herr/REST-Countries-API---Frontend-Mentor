@@ -69,14 +69,18 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
   .countryToFind,
   .selectFilter,
   .card,
-  .autoComplete__results {
+  .aselect ul {
     background-color: white;
     color: $VeryDarkBlue;
   }
   .selectFilter,
   .searchForm,
-  .autoComplete__results {
+  .aselect ul {
     box-shadow: 0 2px 15px -12px;
+  }
+  .aselect ul li:hover,
+  .aselect ul li.current {
+    background: #eaeaea;
   }
   .autoComplete__results {
     li {
@@ -104,6 +108,7 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
   .searchForm,
   .countryToFind,
   .selectFilter,
+  .aselect ul,
   .card,
   .countryToFind,
   header {
@@ -113,8 +118,13 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
 
   .selectFilter,
   .searchForm,
-  .autoComplete__results {
+  .autoComplete__results,
+  .aselect ul {
     box-shadow: 0px 2px 8px 0px #0000000f;
+  }
+  .aselect ul li:hover,
+  .aselect ul li.current {
+    background-color: #344553;
   }
   .autoComplete__results {
     background-color: $DarkBlue;
@@ -268,11 +278,10 @@ header {
 }
 .selectFilter {
   width: 200px;
-  border-right: solid 15px transparent;
-  padding-left: 20px;
-  padding-top: 5px;
   font-weight: 600;
   border-radius: 3px;
+  position: relative;
+  right: -1px;
   outline: none;
   &:hover {
     cursor: pointer;
@@ -539,5 +548,66 @@ header {
   }
   .country__borders-item {
     min-width: 110px;
+  }
+}
+
+.aselect {
+  width: 200px;
+  display: grid;
+  align-items: center;
+  .selector {
+    background-color: inherit;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+
+    .arrow {
+      position: absolute;
+      right: 10px;
+      top: 40%;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 7px solid #888;
+      transform: rotateZ(0deg) translateY(0px);
+      transition-duration: 0.3s;
+      transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
+    }
+    .expanded {
+      transform: rotateZ(180deg) translateY(2px);
+    }
+    .label {
+      display: block;
+      padding: 12px;
+      font-size: 14px;
+      color: inherit;
+    }
+  }
+  ul {
+    margin-top: 20px;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    position: absolute;
+    z-index: 1;
+  }
+  li {
+    padding: 12px;
+    color: inherit;
+    font-size: 14px;
+    &:hover {
+      background: $VeryLightGray;
+    }
+  }
+  .hidden {
+    visibility: hidden;
+  }
+  .listOfFilterVisible {
+    visibility: visible;
+    position: relative;
+    top: 15px;
   }
 }

@@ -32,27 +32,38 @@
           >
         </ul>
       </div>
-      <select
-        name="select"
-        v-model="filterChoice"
-        @change="detectFilter"
-        class="selectFilter"
+
+      <div
+        class="aselect selectFilter"
+        :data-value="filterChoice"
+        :data-list="regions"
       >
-        <option selected value="all">Filter by Region</option>
-        <option value="Asia" selected>Asia</option>
-        <option value="Europe">Europe</option>
-        <option value="Africa">Africa</option>
-        <option value="Oceania">Oceania</option>
-        <option value="Americas">Americas</option>
-        <option value="Polar">Polar</option>
-      </select>
+        <div class="selector" @click="toggle()">
+          <div class="label">
+            <span>{{ filterChoice }}</span>
+          </div>
+          <div class="arrow" :class="{ expanded: listOfFilterVisible }"></div>
+          <div :class="{ hidden: !listOfFilterVisible, listOfFilterVisible }">
+            <ul>
+              <li
+                :class="{ current: item === filterChoice }"
+                v-for="item in regions"
+                @click="select(item)"
+                :key="item.id"
+              >
+                {{ item }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <transition-group
       tag="div"
       name="list"
       class="list__countries"
-      v-if="filterChoice === 'all'"
+      v-if="filterChoice === 'All'"
     >
       <CountryCard
         v-for="item in domCountriesList"
@@ -88,7 +99,16 @@ export default {
     CountryCard,
   },
   setup() {
-    let filterChoice = ref("all"); //Region filter value
+    let filterChoice = ref("All"); //Region filter value
+    let regions = [
+      "All",
+      "Asia",
+      "Europe",
+      "Africa",
+      "Oceania",
+      "Americas",
+      "Polar",
+    ];
     let searchBarValue = ref(""); // Search bar value
     let countries = inject("countries"); // List of all countries in chunks
     let allCountries = inject("countriesList"); // List of all countries in chunks
@@ -97,6 +117,7 @@ export default {
     let isSearching = ref(false); //Detect if shearching
     let searchResultList = ref([]);
     let showDiv = ref(false);
+    let listOfFilterVisible = ref(false);
     let i = 0;
 
     watch(countries, () => {
@@ -164,6 +185,15 @@ export default {
       domCountriesList.value.push(...countries.value[0]);
     });
 
+    function toggle() {
+      listOfFilterVisible.value = !listOfFilterVisible.value;
+    }
+
+    function select(option) {
+      filterChoice.value = option;
+      detectFilter();
+    }
+
     return {
       filterChoice,
       detectFilter,
@@ -177,6 +207,10 @@ export default {
       searchResultList,
       autoComplete,
       showDiv,
+      regions,
+      toggle,
+      select,
+      listOfFilterVisible,
     };
   },
 };
