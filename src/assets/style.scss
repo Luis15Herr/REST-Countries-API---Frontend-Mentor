@@ -66,7 +66,7 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
     transition: background 0.2s;
   }
   .searchForm,
-  .countryToFind,
+  .countryFilter__inputTxt,
   .selectFilter,
   .card,
   .aselect ul {
@@ -82,7 +82,10 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
   .aselect ul li.current {
     background: #eaeaea;
   }
-  .autoComplete__results {
+  .countryFilter__searchResults {
+    background-color: white;
+    box-shadow: 0 2px 15px -12px;
+
     li {
       a {
         &:hover {
@@ -91,7 +94,7 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
       }
     }
   }
-  .countryToFind {
+  .countryFilter__inputTxt {
     color: $DarkGray;
   }
 }
@@ -106,11 +109,11 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
     transition: background 0.2s;
   }
   .searchForm,
-  .countryToFind,
+  .countryFilter__inputTxt,
   .selectFilter,
   .aselect ul,
   .card,
-  .countryToFind,
+  .countryFilter__inputTxt,
   header {
     background-color: $DarkBlue;
     color: $White;
@@ -118,7 +121,7 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
 
   .selectFilter,
   .searchForm,
-  .autoComplete__results,
+  .countryFilter__searchResults,
   .aselect ul {
     box-shadow: 0px 2px 8px 0px #0000000f;
   }
@@ -126,7 +129,7 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
   .aselect ul li.current {
     background-color: #344553;
   }
-  .autoComplete__results {
+  .countryFilter__searchResults {
     background-color: $DarkBlue;
     a {
       color: $White;
@@ -135,7 +138,7 @@ $White: hsl(0, 0%, 100%); //(Dark Mode Text & Light Mode Elements)
       }
     }
   }
-  .countryToFind {
+  .countryFilter__inputTxt {
     &::placeholder {
       color: $White;
     }
@@ -179,7 +182,7 @@ header {
   margin: 0 auto;
 }
 
-.filter__countries {
+.countryFilter {
   display: flex;
   justify-content: space-between;
 }
@@ -241,12 +244,14 @@ header {
     transform: rotate(0);
   }
 }
-.autoComplete__results {
+.countryFilter__searchResults {
   margin-top: 10px;
   width: 100%;
   z-index: 5;
   position: relative;
   padding: 0;
+  border-radius: 5px;
+
   li {
     list-style: none;
     text-align: left;
@@ -263,18 +268,20 @@ header {
   }
 }
 
-.seeAll__search {
+.seeAllBtn {
   padding: 10px 0;
+  font-weight: 600;
   display: block;
   cursor: pointer;
 }
 
-.countryToFind {
+.countryFilter__inputTxt {
   height: 55px;
   padding: 0 25px;
   padding-top: 5px;
   width: 430px;
   outline: none;
+  border-radius: 5px;
 }
 .selectFilter {
   width: 200px;
@@ -346,6 +353,7 @@ header {
 }
 
 .country__back-btn {
+  color: inherit;
   height: 40px;
   width: 136px;
   display: inline-block;
@@ -458,7 +466,7 @@ header {
   #nav {
     margin-bottom: 25px;
   }
-  .filter__countries {
+  .countryFilter {
     flex-direction: column;
     width: 92%;
     margin: auto;
@@ -466,8 +474,13 @@ header {
   .searchForm {
     margin-bottom: 45px;
     padding-left: 0;
+    text-align: left;
   }
-  .countryToFind {
+  .bi-search,
+  .bi-house {
+    padding-left: 20px;
+  }
+  .countryFilter__inputTxt {
     width: 75%;
   }
   .selectFilter {

@@ -86,7 +86,7 @@
 }
 
 .light__theme .searchForm,
-.light__theme .countryToFind,
+.light__theme .countryFilter__inputTxt,
 .light__theme .selectFilter,
 .light__theme .card,
 .light__theme .aselect ul {
@@ -106,11 +106,17 @@
   background: #eaeaea;
 }
 
-.light__theme .autoComplete__results li a:hover {
+.light__theme .countryFilter__searchResults {
+  background-color: white;
+  -webkit-box-shadow: 0 2px 15px -12px;
+          box-shadow: 0 2px 15px -12px;
+}
+
+.light__theme .countryFilter__searchResults li a:hover {
   background-color: #eeeeeeb0;
 }
 
-.light__theme .countryToFind {
+.light__theme .countryFilter__inputTxt {
   color: #858585;
 }
 
@@ -126,11 +132,11 @@
 }
 
 .dark__theme .searchForm,
-.dark__theme .countryToFind,
+.dark__theme .countryFilter__inputTxt,
 .dark__theme .selectFilter,
 .dark__theme .aselect ul,
 .dark__theme .card,
-.dark__theme .countryToFind,
+.dark__theme .countryFilter__inputTxt,
 .dark__theme header {
   background-color: #2b3945;
   color: white;
@@ -138,7 +144,7 @@
 
 .dark__theme .selectFilter,
 .dark__theme .searchForm,
-.dark__theme .autoComplete__results,
+.dark__theme .countryFilter__searchResults,
 .dark__theme .aselect ul {
   -webkit-box-shadow: 0px 2px 8px 0px #0000000f;
           box-shadow: 0px 2px 8px 0px #0000000f;
@@ -149,31 +155,31 @@
   background-color: #344553;
 }
 
-.dark__theme .autoComplete__results {
+.dark__theme .countryFilter__searchResults {
   background-color: #2b3945;
 }
 
-.dark__theme .autoComplete__results a {
+.dark__theme .countryFilter__searchResults a {
   color: white;
 }
 
-.dark__theme .autoComplete__results a:hover {
+.dark__theme .countryFilter__searchResults a:hover {
   background-color: #384a5a;
 }
 
-.dark__theme .countryToFind::-webkit-input-placeholder {
+.dark__theme .countryFilter__inputTxt::-webkit-input-placeholder {
   color: white;
 }
 
-.dark__theme .countryToFind:-ms-input-placeholder {
+.dark__theme .countryFilter__inputTxt:-ms-input-placeholder {
   color: white;
 }
 
-.dark__theme .countryToFind::-ms-input-placeholder {
+.dark__theme .countryFilter__inputTxt::-ms-input-placeholder {
   color: white;
 }
 
-.dark__theme .countryToFind::placeholder {
+.dark__theme .countryFilter__inputTxt::placeholder {
   color: white;
 }
 
@@ -224,7 +230,7 @@ header {
   margin: 0 auto;
 }
 
-.filter__countries {
+.countryFilter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -336,20 +342,21 @@ header {
   }
 }
 
-.autoComplete__results {
+.countryFilter__searchResults {
   margin-top: 10px;
   width: 100%;
   z-index: 5;
   position: relative;
   padding: 0;
+  border-radius: 5px;
 }
 
-.autoComplete__results li {
+.countryFilter__searchResults li {
   list-style: none;
   text-align: left;
 }
 
-.autoComplete__results li a {
+.countryFilter__searchResults li a {
   display: block;
   cursor: pointer;
   padding: 10px 0px 10px 40px;
@@ -358,23 +365,25 @@ header {
   color: inherit;
 }
 
-.autoComplete__results li a:hover {
+.countryFilter__searchResults li a:hover {
   -webkit-transition: ease 0.2s;
   transition: ease 0.2s;
 }
 
-.seeAll__search {
+.seeAllBtn {
   padding: 10px 0;
+  font-weight: 600;
   display: block;
   cursor: pointer;
 }
 
-.countryToFind {
+.countryFilter__inputTxt {
   height: 55px;
   padding: 0 25px;
   padding-top: 5px;
   width: 430px;
   outline: none;
+  border-radius: 5px;
 }
 
 .selectFilter {
@@ -461,6 +470,7 @@ header {
 }
 
 .country__back-btn {
+  color: inherit;
   height: 40px;
   width: 136px;
   display: inline-block;
@@ -598,7 +608,7 @@ header {
   #nav {
     margin-bottom: 25px;
   }
-  .filter__countries {
+  .countryFilter {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -609,8 +619,13 @@ header {
   .searchForm {
     margin-bottom: 45px;
     padding-left: 0;
+    text-align: left;
   }
-  .countryToFind {
+  .bi-search,
+  .bi-house {
+    padding-left: 20px;
+  }
+  .countryFilter__inputTxt {
     width: 75%;
   }
   .selectFilter {

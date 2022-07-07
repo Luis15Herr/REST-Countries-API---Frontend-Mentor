@@ -1,11 +1,11 @@
 <template>
   <div class="home container">
-    <div class="filter__countries">
+    <div class="countryFilter">
       <div class="searchForm">
         <i class="bi bi-search" v-if="!isSearching" @click="findCountry"></i>
         <i class="bi bi-house" v-else @click="clearSearch"></i>
         <input
-          class="countryToFind"
+          class="countryFilter__inputTxt"
           type="text"
           placeholder="Search for a country"
           v-model.trim="searchBarValue"
@@ -14,7 +14,7 @@
           @focus="showDiv = true"
         />
         <ul
-          class="autoComplete__results"
+          class="countryFilter__searchResults"
           v-if="searchBarValue.length > 1 && showDiv"
         >
           <li v-for="item in searchResultList" :key="item.id">
@@ -24,7 +24,7 @@
             >
           </li>
           <a
-            class="seeAll__search"
+            class="seeAllBtn"
             v-if="searchResultList.length > 4"
             @click="findCountry"
           >
@@ -91,7 +91,7 @@
 
 <script>
 import CountryCard from "@/components/CountryCard.vue";
-import { ref, inject, onMounted, watch } from "@vue/runtime-core";
+import { ref, inject, onMounted } from "@vue/runtime-core";
 
 export default {
   name: "Home",
@@ -120,12 +120,8 @@ export default {
     let listOfFilterVisible = ref(false);
     let i = 0;
 
-    watch(countries, () => {
-      console.log("test");
-    });
-
     function handleScroll() {
-      if (isSearching) return;
+      if (isSearching.value === true) return;
       if (
         window.scrollY + window.innerHeight >=
         document.body.scrollHeight - 200
@@ -146,7 +142,7 @@ export default {
         return;
       }
       isSearching.value = true;
-      filterChoice.value = "all";
+
       let reg = new RegExp(searchBarValue.value, "gi");
       domCountriesList.value = allCountries.value.filter((item) => {
         return item.name.match(reg);
@@ -155,6 +151,17 @@ export default {
 
     function autoComplete() {
       if (searchBarValue.value.length < 1) return;
+
+      document.addEventListener("click", function (e) {
+        if (
+          e.target.classList.value != "countryFilter__inputTxt" &&
+          e.target.classList.value != "countryFilter__searchResults"
+        ) {
+          showDiv.value = false;
+          document.removeEventListener("click", function () {});
+        }
+      });
+
       let reg = new RegExp(searchBarValue.value, "gi");
       searchResultList.value = allCountries.value.filter((item) => {
         return item.name.match(reg);
@@ -172,7 +179,7 @@ export default {
     }
 
     function detectFilter() {
-      if (filterChoice.value === "all") {
+      if (filterChoice.value === "All") {
         domCountriesList.value = countries.value[0];
       } else {
         domCountriesListFiltered.value = [].concat

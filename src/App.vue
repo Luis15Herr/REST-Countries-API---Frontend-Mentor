@@ -37,7 +37,6 @@ export default {
 
     function toggleTheme() {
       darkTheme.value = !darkTheme.value;
-      console.log("works", darkTheme.value);
       if (darkTheme.value) {
         document.body.classList.add("dark__theme");
         document.body.classList.remove("light__theme");
@@ -61,7 +60,6 @@ export default {
         localStorage.getItem("allCountriesChunks") === null ||
         localStorage.getItem("allCountries") === null
       ) {
-        console.log("Loading From Web");
         fetch("https://restcountries.com/v2/all")
           .then((response) => response.json())
           .then((data) => {
@@ -78,7 +76,6 @@ export default {
             loading.value = false;
           });
       } else {
-        console.log("Loading from storage");
         countriesList.value = JSON.parse(localStorage.getItem("allCountries"));
         countries.value = JSON.parse(
           localStorage.getItem("allCountriesChunks")
