@@ -151,11 +151,12 @@ header {
 .header__wrapper {
   display: flex;
   justify-content: space-between;
-  padding: 23px 0 25px 0px;
+  padding: 26px 0 27px 0px;
 }
 .header__logo {
   font-weight: 700;
-  font-size: 1.48em;
+  font-size: 1.51em;
+  margin-left: 3px;
 }
 #nav {
   margin-bottom: 47px;
@@ -164,7 +165,7 @@ header {
   button {
     font-size: 0.95em;
     font-weight: 700;
-    margin-top: 7px;
+    margin-top: 5px;
     margin-left: 10px;
     padding: 0;
     color: inherit;
@@ -283,17 +284,6 @@ header {
   outline: none;
   border-radius: 5px;
 }
-.selectFilter {
-  width: 200px;
-  font-weight: 600;
-  border-radius: 3px;
-  position: relative;
-  right: -1px;
-  outline: none;
-  &:hover {
-    cursor: pointer;
-  }
-}
 .list__countries {
   z-index: 6;
   margin-top: 48px;
@@ -302,6 +292,80 @@ header {
   row-gap: 75px;
   column-gap: 75px;
   grid-auto-rows: 335px;
+}
+.selectFilter {
+  width: 200px;
+  font-weight: 500;
+  border-radius: 3px;
+  position: relative;
+  right: -1px;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.aselect {
+  width: 200px;
+  display: grid;
+  align-items: center;
+  .selector {
+    background-color: inherit;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+
+    .arrow {
+      position: absolute;
+      right: 10px;
+      top: 40%;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 7px solid #888;
+      transform: rotateZ(0deg) translateY(0px);
+      transition-duration: 0.3s;
+      transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
+    }
+    .expanded {
+      transform: rotateZ(180deg) translateY(2px);
+    }
+    .label {
+      display: block;
+      padding: 19px;
+      font-size: 14px;
+      color: inherit;
+    }
+  }
+  ul {
+    margin-top: 20px;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    position: absolute;
+    z-index: 1;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  li {
+    padding: 7px 20px;
+    color: inherit;
+    font-size: 14px;
+    &:hover {
+      background: $VeryLightGray;
+    }
+  }
+  .hidden {
+    visibility: hidden;
+  }
+  .listOfFilterVisible {
+    visibility: visible;
+    position: relative;
+    top: 12px;
+  }
 }
 
 .card {
@@ -561,66 +625,5 @@ header {
   }
   .country__borders-item {
     min-width: 110px;
-  }
-}
-
-.aselect {
-  width: 200px;
-  display: grid;
-  align-items: center;
-  .selector {
-    background-color: inherit;
-    position: relative;
-    z-index: 1;
-    text-align: left;
-
-    .arrow {
-      position: absolute;
-      right: 10px;
-      top: 40%;
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 7px solid #888;
-      transform: rotateZ(0deg) translateY(0px);
-      transition-duration: 0.3s;
-      transition-timing-function: cubic-bezier(0.59, 1.39, 0.37, 1.01);
-    }
-    .expanded {
-      transform: rotateZ(180deg) translateY(2px);
-    }
-    .label {
-      display: block;
-      padding: 12px;
-      font-size: 14px;
-      color: inherit;
-    }
-  }
-  ul {
-    margin-top: 20px;
-    width: 100%;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-    position: absolute;
-    z-index: 1;
-  }
-  li {
-    padding: 12px;
-    color: inherit;
-    font-size: 14px;
-    &:hover {
-      background: $VeryLightGray;
-    }
-  }
-  .hidden {
-    visibility: hidden;
-  }
-  .listOfFilterVisible {
-    visibility: visible;
-    position: relative;
-    top: 15px;
   }
 }

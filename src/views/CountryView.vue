@@ -5,7 +5,7 @@
     >
     <div class="country__content">
       <div class="country__flag">
-        <img :src="country.flag" alt="" />
+        <img :src="country.flag" :alt="'flag of ' + name" />
       </div>
       <div class="country__info">
         <h1 class="country__name">

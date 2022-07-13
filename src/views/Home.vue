@@ -63,7 +63,7 @@
       tag="div"
       name="list"
       class="list__countries"
-      v-if="filterChoice === 'All'"
+      v-if="filterChoice === 'Filter by Region'"
     >
       <CountryCard
         v-for="item in domCountriesList"
@@ -99,26 +99,26 @@ export default {
     CountryCard,
   },
   setup() {
-    let filterChoice = ref("All"); //Region filter value
+    let filterChoice = ref("Filter by Region"); //Region filter value
     let regions = [
-      "All",
+      "Filter by Region",
+      "Africa",
+      "Americas",
       "Asia",
       "Europe",
-      "Africa",
       "Oceania",
-      "Americas",
       "Polar",
     ];
     let searchBarValue = ref(""); // Search bar value
     let countries = inject("countries"); // List of all countries in chunks
-    let allCountries = inject("countriesList"); // List of all countries in chunks
+    let allCountries = inject("countriesList"); // List of all countries
     let domCountriesList = ref([]); //List to show countries
     let domCountriesListFiltered = ref([]); //List to show countries by filter
     let isSearching = ref(false); //Detect if shearching
     let searchResultList = ref([]);
     let showDiv = ref(false);
     let listOfFilterVisible = ref(false);
-    let i = 0;
+    let i = 1;
 
     function handleScroll() {
       if (isSearching.value === true) return;
@@ -179,7 +179,7 @@ export default {
     }
 
     function detectFilter() {
-      if (filterChoice.value === "All") {
+      if (filterChoice.value === "Filter by Region") {
         domCountriesList.value = countries.value[0];
       } else {
         domCountriesListFiltered.value = [].concat
@@ -190,6 +190,7 @@ export default {
     onMounted(() => {
       window.addEventListener("scroll", handleScroll);
       domCountriesList.value.push(...countries.value[0]);
+      console.log(countries.value);
     });
 
     function toggle() {
