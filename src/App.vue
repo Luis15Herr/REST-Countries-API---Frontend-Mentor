@@ -34,7 +34,6 @@ export default {
     let countriesList = ref(null);
     let loading = ref(true);
     let darkTheme = ref(false);
-
     function toggleTheme() {
       darkTheme.value = !darkTheme.value;
       if (darkTheme.value) {
