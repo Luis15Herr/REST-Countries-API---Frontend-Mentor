@@ -190,7 +190,6 @@ export default {
     onMounted(() => {
       window.addEventListener("scroll", handleScroll);
       domCountriesList.value.push(...countries.value[0]);
-      console.log(countries.value);
     });
 
     function toggle() {

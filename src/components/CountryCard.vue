@@ -2,7 +2,6 @@
   <router-link
     :to="{ name: 'CountryView', params: { name: name } }"
     class="card"
-    :name="name"
   >
     <div class="card__img">
       <img :src="flag" :alt="'flag of ' + name" />

@@ -2,7 +2,7 @@
   <div id="nav">
     <header>
       <div class="container header__wrapper">
-        <div class="header__logo">Where in the world?</div>
+        <h1 class="header__logo">Where in the world?</h1>
         <div class="header__theme-switcher">
           <button @click="toggleTheme">
             <i class="bi bi-moon-stars"></i> Dark Mode
