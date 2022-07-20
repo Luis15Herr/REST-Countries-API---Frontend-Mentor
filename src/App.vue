@@ -1,16 +1,14 @@
 <template>
-  <div id="nav">
-    <header>
-      <div class="container header__wrapper">
-        <h1 class="header__logo">Where in the world?</h1>
-        <div class="header__theme-switcher">
-          <button @click="toggleTheme">
-            <i class="bi bi-moon-stars"></i> Dark Mode
-          </button>
-        </div>
+  <header id="nav">
+    <div class="container header__wrapper">
+      <h1 class="header__logo">Where in the world?</h1>
+      <div class="header__theme-switcher">
+        <button @click="toggleTheme">
+          <i class="bi bi-moon-stars"></i> Dark Mode
+        </button>
       </div>
-    </header>
-  </div>
+    </div>
+  </header>
   <div class="test" v-if="loading">
     <div class="lds-ring">
       <div></div>
@@ -19,7 +17,7 @@
       <div></div>
     </div>
   </div>
-  <router-view v-else v-slot="{ Component }">
+  <router-view v-else v-slot="{ Component }" role="main">
     <transition name="fade" mode="out-in">
       <component :is="Component" />
     </transition>
